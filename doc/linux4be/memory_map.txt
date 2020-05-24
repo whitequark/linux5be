@@ -1,0 +1,35 @@
+Hackers :: Memory Map
+
+This is a list of all known memory locations on the BE300.
+Please note that only the vr4131 information is from an official manual, all the others are mainly based on voodoo magic and there is absolutely no guarantee those are correct : if you use this information and it breaks something, you're on your own.
+
+0xaa000000  ---------- Start Kj Companion -----
+0xaa000000  PIU Base on companion
+0xaa000000  Cak Base on companion
+0xaa000000  GPIO Base on companion
+0xaa000301  touchpanel related
+0xaa00031C  touchpanel related
+0xaa000980  BlgReg_BASE ,size 0x68 (Casio SDK, buzzer.h)
+0xaa001000  ???? Base on companion, CF related
+0xaa001128  CmmReg_BASE ,size 0x04 (Casio SDK, buzzer.h)
+0xaa007800  ScCmcu Base on companion
+0xaa008000  Vic/CommMode Base on companion
+0xaa008680  SIU Base on companion
+0xaa00a000  KjCMU Base on companion
+0xaa200000  video memory (framebuffer)
+0xab000060  CMU CLKMSK on companion ?
+0xab00011c  GIU_PODATL on companion ?
+0xaf000000  ---------- Start vr4131 -----------
+0xaf000000  VRIP Base on vr4131
+0xaf000060  CMU on vr4131
+0xaf000100  RTC on vr4131
+0xaf000140  GIU on vr4131 (used by serial)
+0xaf000800  SIU Base on vr4131
+0xaf000820  DSIU Base on vr4131
+0xaf000c00  PCI Addr on vr4131
+0xaf000d00  PCICONF Addr on vr4131
+0xbfc00000  ---------- Start bootrom ----------
+0xbfc00000  Reset NMI (in bootrom)
+0xbfc00200  TLB Refill (in bootrom)
+0xbfc00280  XTLB Refill (in bootrom)
+0xbfc00300  Cache Error (in bootrom)

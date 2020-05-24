@@ -1,0 +1,27 @@
+Hackers :: Hardware
+
+BE-300 Memory configuration: click here for the details
+From the official specifications:
+Processor:  NEC VR4131 @ 166Mhz, 280 MIPS (64 bit)
+(vrip address and registers are same as 4122)
+Preliminary User's Manual (NEC Japan, Thanks to Andrey)
+Display:  3.2 inch, 320x240 pixel, 32,768 color STN
+
+From 'operation screwdriver':
+LCD Controller: EPSON L50753 25T1 (A0130S268)
+New model for SLA507TH, gate array
+spec's at epson
+RAM:  Samsung K4S641633D-GL1H000 2078 Sdram 4x16, 64M (two pieces)
+Unknown:  CASIO CAK2007 (0125 JBH)
+Custom chip:  NEC D89041F1001
+This chip has the same size/package as he VR4131, could be a custom VRC4173 ?
+Vrc 4173 User's Manual (NEC Japan)
+Flash RAM (NAND): Samsung K9F 2808U0B
+spec's at Samsung (PDF)
+
+From other sources:
+AC Jack Hosiden partnr. HEC3654
+Headphone Jack  Hosiden partnr. HSJ1636
+RS232C Connector  Hosiden partnr. TCX3110
+Reset Switch  Matshusita Electric Industrial
+CF Connector  Molex Japan

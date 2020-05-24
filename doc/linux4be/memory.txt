@@ -1,0 +1,29 @@
+Hackers :: Memory configuration on the BE-300
+
+In the BE-300 there is 16MB RAM, 16MB Flash ROM (NAND), and 16KB Masked ROM (not 100% sure about this size, and it might be a read-only part of the NAND).
+
+Please note the difference between NAND Flash ROM and NAND Disk:
+The NAND Flash ROM is a 16MB Flash ROM chip, the NAND Disk is the 12MB FAT16 partition (and a part of the 16MB NAND Flash ROM)
+
+16MB NAND Flash ROM = 4MB compressed NK.EXE(=CE kernel+core DLL's)+12MB Nand Disk (FAT16)
+The 4MB is the compressed NK.EXE (looks like casio proprietary compression) and is uncompressed into memory when you see the blue progress bar after a hard reset. It's the small ROM that contains the code to copy and uncompress, and probably has a bootloader integrated aswell (to reflash the NAND).
+In most ROM based CE devices, the CE kernel is executed (XIP, eXecute In Place) directly from the ROM, but the NAND Flash is too slow for this approach.
+So after a hard reset, when you see the blue progress bar, the 4MB compressed NK.EXE is copied into RAM (probably about 7MB used ?), and the CE kernel is always running from RAM.
+The OS needs some additional RAM to work, leaving probably about 8-9MB of free RAM (for userspace applications).
+
+The CE kernel in the BE is configured to start killing processes that use more than 4MB, to protect the system from crashing and it works quite well: it's rather hard to crash a be (compared to some other systems).
+
+So there IS 16MB RAM and 16MB Flash ROM on the BE, it's just not fully available to the user.
+
+backup images
+
+The 12MB backup files are just plain FAT16 dumps; you can read them with winimage or mount them trough loopback if you are on Linux.
+
+The 16MB files are a little different:
+About 4MB for the compressed NK.EXE, followed by the FAT16 Nand Disk.
+The compressed NK.EXE is a memory image that get's uncompressed into RAM when you see the blue progress bar, it is the CE kernel, together with some core DLL's etc.
+The format of the NK.exe is badly documented (in the platform builder doc's) but the compression on top off it is even worse since it seems to be casio proprietary, and not documented.
+
+I hope this clarifies a bit, feel free to contact me with questions/remarks.
+
+Filip@Linux4.BE

@@ -1,0 +1,54 @@
+diff -uNr linux.orig/include/asm-mips/r4kcache.h linux/include/asm-mips/r4kcache.h
+--- linux.orig/include/asm-mips/r4kcache.h	2004-01-05 10:55:52.000000000 +0900
++++ linux/include/asm-mips/r4kcache.h	2004-08-07 01:27:52.000000000 +0900
+@@ -47,7 +47,12 @@
+ 
+ static inline void flush_dcache_line(unsigned long addr)
+ {
++#if 1 // CONFIG_VR4131_CACHE_BUG_FIX
++	cache_op(Hit_Writeback_D, addr);
++	cache_op(Hit_Invalidate_D, addr);
++#else
+ 	cache_op(Hit_Writeback_Inv_D, addr);
++#endif
+ }
+ 
+ static inline void invalidate_dcache_line(unsigned long addr)
+@@ -94,7 +99,11 @@
+ 	__asm__ __volatile__(
+ 		".set noreorder\n\t"
+ 		".set mips3\n"
++#if 1 // CONFIG_VR4131_CACHE_BUG_FIX
++		"1:\tcache 0x19,(%1)\n\tcache 0x11,(%1)\n"
++#else
+ 		"1:\tcache %0,(%1)\n"
++#endif
+ 		"2:\t.set mips0\n\t"
+ 		".set reorder\n\t"
+ 		".section\t__ex_table,\"a\"\n\t"
+@@ -158,7 +167,12 @@
+ 	unsigned long end = start + PAGE_SIZE;
+ 
+ 	do {
++#if 1 // CONFIG_VR4131_CACHE_BUG_FIX
++		cache16_unroll32(start,Hit_Writeback_D);
++		cache16_unroll32(start,Hit_Invalidate_D);
++#else
+ 		cache16_unroll32(start,Hit_Writeback_Inv_D);
++#endif
+ 		start += 0x200;
+ 	} while (start < end);
+ }
+@@ -301,7 +315,12 @@
+ 	unsigned long end = start + PAGE_SIZE;
+ 
+ 	do {
++#if 1 // CONFIG_VR4131_CACHE_BUG_FIX
++		cache32_unroll32(start,Hit_Writeback_D);
++		cache32_unroll32(start,Hit_Invalidate_D);
++#else
+ 		cache32_unroll32(start,Hit_Writeback_Inv_D);
++#endif
+ 		start += 0x400;
+ 	} while (start < end);
+ }
